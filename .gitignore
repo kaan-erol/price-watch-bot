@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.pyo
+.vscode/
+.env
+*.sqlite3
+scrapy.cfg
