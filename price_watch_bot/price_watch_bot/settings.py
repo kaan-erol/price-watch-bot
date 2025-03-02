@@ -19,7 +19,7 @@ USER_AGENT_FILE = 'C:/Users/kaane/Repository/price-watch-bot/user_agents.txt'
 #USER_AGENT = "price_watch_bot (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
