@@ -101,3 +101,22 @@ class PriceWatchBotDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info("Spider opened: %s" % spider.name)
+
+import random
+import os
+
+class RandomUserAgentMiddleware:
+    def __init__(self, user_agent_file):
+        user_agent_path = os.path.abspath(user_agent_file)
+        with open(user_agent_path, "r") as f:
+            self.user_agents = f.read().splitlines()
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        user_agent_file = crawler.settings.get("USER_AGENT_FILE", "user_agents.txt")
+        return cls(user_agent_file)
+
+    def process_request(self, request, spider):
+        user_agent = random.choice(self.user_agents)
+        request.headers["User-Agent"] = user_agent
+        spider.logger.info(f"Using User-Agent: {user_agent}")

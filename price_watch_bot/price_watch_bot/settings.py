@@ -12,6 +12,8 @@ BOT_NAME = "price_watch_bot"
 SPIDER_MODULES = ["price_watch_bot.spiders"]
 NEWSPIDER_MODULE = "price_watch_bot.spiders"
 
+USER_AGENT_FILE = 'C:/Users/kaane/Repository/price-watch-bot/user_agents.txt'
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "price_watch_bot (+http://www.yourdomain.com)"
@@ -50,9 +52,10 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    "price_watch_bot.middlewares.PriceWatchBotDownloaderMiddleware": 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    "price_watch_bot.middlewares.PriceWatchBotDownloaderMiddleware": 543,
+    'price_watch_bot.middlewares.RandomUserAgentMiddleware': 400,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
