@@ -11,8 +11,6 @@ class NikeSpiderSpider(scrapy.Spider):
             self.start_urls = [product_url]
         else:
             raise ValueError("Lütfen bir ürün URL'si girin!")
-    
-    start_urls = ["https://www.nike.com/tr/t/dunk-low-retro-ayakkab%C4%B1s%C4%B1-mhrtZC/DD1391-103"]
 
     def parse(self, response):
         item = ProductItem()
