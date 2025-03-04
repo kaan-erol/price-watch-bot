@@ -54,7 +54,7 @@ ROBOTSTXT_OBEY = False
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
     "price_watch_bot.middlewares.PriceWatchBotDownloaderMiddleware": 543,
-    'price_watch_bot.middlewares.RandomUserAgentMiddleware': 400,
+    "price_watch_bot.middlewares.RandomUserAgentMiddleware": 400,
 }
 
 # Enable or disable extensions
@@ -65,9 +65,10 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "price_watch_bot.pipelines.PriceWatchBotPipeline": 300,
-#}
+ITEM_PIPELINES = {
+    "price_watch_bot.pipelines.PriceWatchBotPipeline": 300,
+    "price_watch_bot.pipelines.SaveToMySQLPipeline": 1,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
