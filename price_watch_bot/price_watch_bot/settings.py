@@ -67,7 +67,7 @@ DOWNLOADER_MIDDLEWARES = {
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     "price_watch_bot.pipelines.PriceWatchBotPipeline": 300,
-    "price_watch_bot.pipelines.SaveToMySQLPipeline": 1,
+    "price_watch_bot.pipelines.SaveToMySQLPipeline": 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
