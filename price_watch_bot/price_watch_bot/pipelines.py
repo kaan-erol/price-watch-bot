@@ -6,6 +6,8 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+import sys
+sys.path.append('C:/Users/kaane/Repository/price-watch-bot/price_watch_bot/price_watch_bot')
 import mysql.connector
 from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
 
