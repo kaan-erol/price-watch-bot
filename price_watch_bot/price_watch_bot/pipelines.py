@@ -40,7 +40,7 @@ class SaveToMySQLPipeline:
         self.cur.execute("""
         CREATE TABLE IF NOT EXISTS products (
             id INT NOT NULL AUTO_INCREMENT,
-            url VARCHAR(255),
+            url VARCHAR(255) UNIQUE,
             product_name TEXT,
             product_price DECIMAL,
             PRIMARY KEY (id)
@@ -48,20 +48,24 @@ class SaveToMySQLPipeline:
         """)
 
     def process_item(self, item, spider):
-        self.cur.execute(""" INSERT INTO products (
-            url,
-            product_name,
-            product_price
-            ) VALUES (
-                %s, 
-                %s, 
-                %s
-            ) """, (
-            item["url"],
-            item["product_name"],
-            item["product_price"]
-        ))
-
+        self.cur.execute("SELECT product_price FROM products WHERE url = %s", (item["url"],))
+        result = self.cur.fetchone()
+        if result:
+            old_price = result[0]
+            # Fiyat düştüyse güncelle
+            if item["product_price"] < old_price:
+                self.cur.execute("""
+                    UPDATE products
+                    SET product_price = %s, product_name = %s
+                    WHERE url = %s
+                """, (item["product_price"], item["product_name"], item["url"]))
+                print(f"Price dropped! The new price for {item['product_name']} has been updated.")
+        else:
+            # Eğer ürün yoksa ekle
+            self.cur.execute("""
+                INSERT INTO products (url, product_name, product_price)
+                VALUES (%s, %s, %s)
+            """, (item["url"], item["product_name"], item["product_price"]))
         self.conn.commit()
         return item
     
