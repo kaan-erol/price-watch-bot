@@ -107,7 +107,7 @@ import os
 
 class RandomUserAgentMiddleware:
     def __init__(self, user_agent_file):
-        user_agent_path = os.path.abspath(user_agent_file)
+        user_agent_path = os.path.normpath(user_agent_file)
         with open(user_agent_path, "r") as f:
             self.user_agents = f.read().splitlines()
 

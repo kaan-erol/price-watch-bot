@@ -12,7 +12,11 @@ BOT_NAME = "price_watch_bot"
 SPIDER_MODULES = ["price_watch_bot.spiders"]
 NEWSPIDER_MODULE = "price_watch_bot.spiders"
 
-USER_AGENT_FILE = 'C:/Users/kaane/Repository/price-watch-bot/user_agents.txt'
+import os
+
+BASE_DIR = os.getenv("PRICE-WATCH-BOT", os.path.dirname(os.path.abspath(__file__)))
+
+USER_AGENT_FILE = os.path.join(BASE_DIR, "user_agents.txt")
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
