@@ -10,6 +10,7 @@ import sys
 sys.path.append('C:/Users/kaane/Repository/price-watch-bot/price_watch_bot/price_watch_bot')
 import mysql.connector
 from config import MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, MYSQL_DATABASE
+from mail import send_email
 
 class PriceWatchBotPipeline:
     def process_item(self, item, spider):
@@ -52,16 +53,18 @@ class SaveToMySQLPipeline:
         result = self.cur.fetchone()
         if result:
             old_price = result[0]
-            # Fiyat düştüyse güncelle
+            # Update if price drops
             if item["product_price"] < old_price:
                 self.cur.execute("""
                     UPDATE products
                     SET product_price = %s, product_name = %s
                     WHERE url = %s
                 """, (item["product_price"], item["product_name"], item["url"]))
-                print(f"Price dropped! The new price for {item['product_name']} has been updated.")
+                send_email(
+                    "Price Drop Alert!",
+                    f"The price for {item['product_name']} has dropped! The new price is {item['product_price']}. Item url: {item['url']}")
         else:
-            # Eğer ürün yoksa ekle
+            # If the product does not exist add it
             self.cur.execute("""
                 INSERT INTO products (url, product_name, product_price)
                 VALUES (%s, %s, %s)
