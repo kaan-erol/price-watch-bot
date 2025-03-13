@@ -1,0 +1,35 @@
+name: Daily Scraping
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      # Install necessary dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Run Puma Spider
+      - name: Run Puma Spider
+        run: |
+          scrapy crawl puma_spider
+
+      # Run Nike Spider
+      - name: Run Nike Spider
+        run: |
+          scrapy crawl nike_spider
