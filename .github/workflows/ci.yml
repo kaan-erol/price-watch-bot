@@ -28,11 +28,11 @@ jobs:
       # Run Puma Spider
       - name: Run Puma Spider
         run: |
-          cd price-watch-bot/price_watch_bot/price_watch_bot
+          cd price_watch_bot/price_watch_bot
           scrapy crawl puma_spider
 
       # Run Nike Spider
       - name: Run Nike Spider
         run: |
-          cd price-watch-bot/price_watch_bot/price_watch_bot
+          cd price_watch_bot/price_watch_bot
           scrapy crawl nike_spider
