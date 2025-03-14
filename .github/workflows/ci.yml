@@ -29,6 +29,7 @@ jobs:
       - name: Run Puma Spider
         run: |
           cd price_watch_bot/price_watch_bot
+          pwd
           scrapy crawl puma_spider
 
       # Run Nike Spider
