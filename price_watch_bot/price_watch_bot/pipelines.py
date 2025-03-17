@@ -54,7 +54,7 @@ class SaveToMySQLPipeline:
         if result:
             old_price = result[0]
             # Update if price drops
-            if item["product_price"] < old_price:
+            if float(item["product_price"]) < float(old_price):
                 self.cur.execute("""
                     UPDATE products
                     SET product_price = %s, product_name = %s
